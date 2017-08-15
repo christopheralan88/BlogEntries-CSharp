@@ -8,13 +8,13 @@ namespace BlogEntries_CSharp.Controllers
 {
     public class BlogEntryController : Controller
     {
-
+        //Blogs blogs = new Blogs(); // db or in memory data persistence
 
         // GET: BlogEntry
-        public string Index()
+        public ActionResult Index()
         {
             //return View();
-            return "Hello world!";
+            return Content("Hello World!");
         }
     }
 }
