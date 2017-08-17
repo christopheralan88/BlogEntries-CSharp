@@ -29,9 +29,60 @@ namespace BlogEntries_CSharp.Models
             this.slug = slugify(title);
         }
 
+        public bool addComment(BlogEntry blogEntry, string user, string text)
+        {
+            Comment comment = new Comment(blogEntry, user, text);
+            try
+            {
+                comments.Add(comment);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }  
+        }
+
+        public bool removeComment(Comment comment)
+        {
+            return comments.Remove(comment);
+        }
+
+        public bool addTag(string[] tagsToAdd)
+        {
+            try
+            {
+                foreach (string tag in tagsToAdd)
+                {
+                    tags.Add(tag);
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;   
+            }
+        }
+
+        public bool removeTag(string[] tagsToRemove)
+        {
+            try
+            {
+                foreach (string tag in tagsToRemove)
+                {
+                    tags.Remove(tag);
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
         private string slugify(string title)
         {
-            return title.Replace(' ', '-').ToLower();
+            return title.Trim().Replace(' ', '-').ToLower();
         }
     }
 }
