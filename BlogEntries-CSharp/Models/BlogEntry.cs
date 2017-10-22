@@ -8,25 +8,46 @@ namespace BlogEntries_CSharp.Models
     public class BlogEntry
     {
         private List<Comment> comments = new List<Comment>();
-        private string title;
+        private string _title;
         private string user;
-        private string text;
+        private string _text;
         private DateTime dateTime;
         private List<string> tags = new List<string>();
-        private string slug;
+        private string _slug;
+
+
+        public string getSlug()
+        {
+            return _slug;
+        }
+
+        public void setSlug(string slug)
+        {
+            _slug = slug;
+        }
+
+        public void setTitle(string title)
+        {
+            _title = title;
+        }
+
+        public void setText(string text)
+        {
+            _text = text;
+        }
 
 
         public BlogEntry(string title, string user, string text, string[] tags)
         {
-            this.title = title;
+            this._title = title;
             this.user = user;
-            this.text = text;
+            this._text = text;
             this.dateTime = DateTime.Today;
             if (tags != null)
             {
                 this.tags = tags.ToList();
             }
-            this.slug = slugify(title);
+            this._slug = slugify(title);
         }
 
         public bool addComment(BlogEntry blogEntry, string user, string text)
