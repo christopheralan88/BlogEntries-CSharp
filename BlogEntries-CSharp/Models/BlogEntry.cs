@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Text.RegularExpressions;
 
 namespace BlogEntries_CSharp.Models
 {
@@ -9,48 +10,78 @@ namespace BlogEntries_CSharp.Models
     {
         private List<Comment> comments = new List<Comment>();
         private string _title;
-        private string user;
+        private string _user;
         private string _text;
         private DateTime dateTime;
         private List<string> tags = new List<string>();
         private string _slug;
 
 
-        public string getSlug()
+        public string Slug
         {
-            return _slug;
+            get
+            {
+                return _slug;
+            }
+            set
+            {
+                _slug = value;
+            }
         }
 
-        public void setSlug(string slug)
+        public string Title
         {
-            _slug = slug;
+            get
+            {
+                return _title;
+            }
+            set
+            {
+                _title = value;
+            }
         }
 
-        public void setTitle(string title)
+        public string Text
         {
-            _title = title;
+            get
+            {
+                return _text;
+            }
+            set
+            {
+                _text = value;
+            }
         }
 
-        public void setText(string text)
+        public string User
         {
-            _text = text;
+            get
+            {
+                return _user;
+            }
+            set
+            {
+                _user = value;
+            }
         }
 
+        // Default constructor
+        public BlogEntry() { }
 
         public BlogEntry(string title, string user, string text, string[] tags)
         {
-            this._title = title;
-            this.user = user;
-            this._text = text;
-            this.dateTime = DateTime.Today;
+            _title = title;
+            _user = user;
+            _text = text;
+            dateTime = DateTime.Today;
             if (tags != null)
             {
                 this.tags = tags.ToList();
             }
-            this._slug = slugify(title);
+            _slug = Slugify(title);
         }
 
-        public bool addComment(BlogEntry blogEntry, string user, string text)
+        public bool AddComment(BlogEntry blogEntry, string user, string text)
         {
             Comment comment = new Comment(blogEntry, user, text);
             try
@@ -64,12 +95,12 @@ namespace BlogEntries_CSharp.Models
             }  
         }
 
-        public bool removeComment(Comment comment)
+        public bool RemoveComment(Comment comment)
         {
             return comments.Remove(comment);
         }
 
-        public bool addTag(string[] tagsToAdd)
+        public bool AddTag(string[] tagsToAdd)
         {
             try
             {
@@ -85,7 +116,7 @@ namespace BlogEntries_CSharp.Models
             }
         }
 
-        public bool removeTag(string[] tagsToRemove)
+        public bool RemoveTag(string[] tagsToRemove)
         {
             try
             {
@@ -101,9 +132,9 @@ namespace BlogEntries_CSharp.Models
             }
         }
 
-        private string slugify(string title)
+        private string Slugify(string title)
         {
-            return title.Trim().Replace(' ', '-').ToLower();
+            return Regex.Replace(title, @"\s+", "-").ToLower();
         }
     }
 }

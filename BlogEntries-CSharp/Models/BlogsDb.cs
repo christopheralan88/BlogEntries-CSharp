@@ -9,25 +9,25 @@ namespace BlogEntries_CSharp.Models
     public class BlogsDb : IBlogDao
     {
         private List<BlogEntry> blogEntries = new List<BlogEntry>();
-        private string exceptionMessage = "A blog entry with that title already exists.  Please change the title and try saving again.";
+        private readonly string EXCEPTION_MESSAGE = "A blog entry with that title already exists.  Please change the title and try saving again.";
 
 
         public BlogsDb()
         {
-            BlogEntry blogEntry = new BlogEntry("Why I love Java", "admin", "Because it's awesome.", new string[] { "Java" });
-            BlogEntry blogEntry2 = new BlogEntry("Why I love Spark", "admin", "Becaues it's great.", new string[] { "Java", "Spark" });
-            BlogEntry blogEntry3 = new BlogEntry("Why I love Spring", "admin", "Because everybody says I should like it.", new string[] { "Spring", "Java" });
+            BlogEntry blogEntry = new BlogEntry("Why I love C#", "admin", "Because it's awesome.", new string[] { "C#" });
+            BlogEntry blogEntry2 = new BlogEntry("Why I love ASP.NET MVC", "admin", "Becaues it's great.", new string[] { "C#", "ASP.NET", "MVC" });
+            BlogEntry blogEntry3 = new BlogEntry("Why I love .NET", "admin", "Because it's a more centralized framework than the Java community offers.", new string[] { ".NET", "EF" });
             blogEntries.Add(blogEntry);
             blogEntries.Add(blogEntry2);
             blogEntries.Add(blogEntry3);
         }
 
-        public bool addEntry(BlogEntry blogEntry)
+        public bool AddEntry(BlogEntry blogEntry)
         {
-            BlogEntry alreadyExistsBlogEntry = blogEntries.Find(b => b.getSlug().Equals(blogEntry.getSlug()));
+            BlogEntry alreadyExistsBlogEntry = blogEntries.Find(b => b.Slug.Equals(blogEntry.Slug));
             if (alreadyExistsBlogEntry != null)
             {
-                throw new BlogAlreadyExistsException(exceptionMessage);
+                throw new BlogAlreadyExistsException(EXCEPTION_MESSAGE);
             }
 
             blogEntries.Add(blogEntry);
@@ -41,34 +41,33 @@ namespace BlogEntries_CSharp.Models
             }
         }
 
-        public bool editBlogEntry(string slug, string title, string text)
+        public bool EditBlogEntry(BlogEntry entry)
         {
-            BlogEntry blogentry = blogEntries.Find(b => b.getSlug().Equals(slug));
-
+            BlogEntry blogentry = blogEntries.Find(b => b.Slug.Equals(entry.Slug));
+            
             if (blogentry == null)
             {
-                throw new BlogAlreadyExistsException(exceptionMessage);
+                throw new Exception("Could not find blog entry");
             } 
             else
             {
-                blogentry.setSlug(slug);
-                blogentry.setTitle(title);
-                blogentry.setText(text);
+                int entryIndex = blogEntries.FindIndex(b => b.Slug.Equals(entry.Slug));
+                blogEntries[entryIndex] = entry;
                 return true;
             }
         }
 
-        public List<BlogEntry> findAllEntries()
+        public List<BlogEntry> FindAllEntries()
         {
             return blogEntries;
         }
 
-        public BlogEntry findEntryBySlug(string slug)
+        public BlogEntry FindEntryBySlug(string slug)
         {
-            return blogEntries.Find(b => b.getSlug().Equals(slug));
+            return blogEntries.Find(b => b.Slug.Equals(slug));
         }
 
-        public bool removeBlogEntry(BlogEntry blogEntry)
+        public bool RemoveBlogEntry(BlogEntry blogEntry)
         {
             return blogEntries.Remove(blogEntry);
         }

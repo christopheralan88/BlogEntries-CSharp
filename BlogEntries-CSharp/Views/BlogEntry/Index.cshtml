@@ -1,0 +1,21 @@
+﻿@model IEnumerable<BlogEntries_CSharp.Models.BlogEntry>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink("Edit", "Edit", item.Slug) |
+            @Html.ActionLink("Details", "Details", item.Slug) |
+            @Html.ActionLink("Delete", "Delete", item.Slug)
+        </td>
+    </tr>
+}
+
+</table>

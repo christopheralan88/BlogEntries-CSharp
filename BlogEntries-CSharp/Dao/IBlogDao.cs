@@ -9,10 +9,10 @@ namespace BlogEntries_CSharp.Dao
 {
     public interface IBlogDao
     {
-        bool addEntry(BlogEntry blogEntry);
-        List<BlogEntry> findAllEntries();
-        BlogEntry findEntryBySlug(string slug);
-        bool removeBlogEntry(BlogEntry blogEntry);
-        bool editBlogEntry(string id, string title, string text);
+        bool AddEntry(BlogEntry blogEntry);
+        List<BlogEntry> FindAllEntries();
+        BlogEntry FindEntryBySlug(string slug);
+        bool RemoveBlogEntry(BlogEntry blogEntry);
+        bool EditBlogEntry(BlogEntry entry);
     }
 }
