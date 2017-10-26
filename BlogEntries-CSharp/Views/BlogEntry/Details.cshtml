@@ -1,0 +1,36 @@
+﻿@model BlogEntries_CSharp.Models.BlogEntry
+
+<p>
+    @Html.ActionLink("Create New", "New")
+</p>
+<table class="table">
+    <tr>
+    </tr>
+
+    <tr>
+        <td>
+            @Model.Title
+        </td>
+        <td>
+            @Model.Text
+        </td>
+        @foreach (var comment in Model.Comments)
+        {
+            <td>
+                @comment.User
+            </td>
+            <td>
+                @comment.DateTime
+            </td>
+            <td>
+                @comment.Text
+            </td>
+        }
+        <td>
+            @Html.ActionLink("Edit", "Edit", Model.Slug) |
+            @Html.ActionLink("Details", "Details", Model.Slug) |
+            @Html.ActionLink("Delete", "Delete", Model.Slug)
+        </td>
+    </tr>
+
+</table>

@@ -10,6 +10,8 @@ namespace BlogEntries_CSharp.Controllers
 {
     public class BlogEntryController : Controller
     {
+        string username;
+        string password;
         BlogsDb blogs = new BlogsDb(); // db or in memory data persistence
 
 
@@ -22,7 +24,7 @@ namespace BlogEntries_CSharp.Controllers
         }
 
         // GET:  Detail
-        public ActionResult Detail(string slug)
+        public ActionResult Details(string slug)
         {
             BlogEntry blogEntry = blogs.FindEntryBySlug(slug);
             return View(blogEntry);
@@ -115,6 +117,23 @@ namespace BlogEntries_CSharp.Controllers
 
             return RedirectToAction("Index");
 
+        }
+
+        [HttpPost]
+        public ActionResult AttemptLogIn(string username, string password)
+        {
+            if (username != null && password != null)
+            {
+                this.username = username;
+                this.password = password;
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                TempData["username"] = username;
+                TempData["password"] = password;
+                return RedirectToAction("SignIn");
+            }
         }
 
         private bool ValidateEntry(BlogEntry entry)

@@ -3,16 +3,21 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
 <table class="table">
     <tr>
-        <th></th>
+        <th>Date</th>
+        <th>Title</th>
     </tr>
-
-@foreach (var item in Model) {
+   
+@foreach (var item in Model)
+{
     <tr>
         <td>
-            @Html.ActionLink("Edit", "Edit", item.Slug) |
-            @Html.ActionLink("Details", "Details", item.Slug) |
+            @item.DateTime
+            @item.Title
+            @Html.ActionLink("Edit", "Edit", "BlogEntry", new { item.Slug }, null) |
+            @Html.ActionLink("Details", "Details", "BlogEntry", new { item.Slug }, null) |
             @Html.ActionLink("Delete", "Delete", item.Slug)
         </td>
     </tr>

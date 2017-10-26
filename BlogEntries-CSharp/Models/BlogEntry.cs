@@ -8,11 +8,11 @@ namespace BlogEntries_CSharp.Models
 {
     public class BlogEntry
     {
-        private List<Comment> comments = new List<Comment>();
+        private List<Comment> _comments = new List<Comment>();
         private string _title;
         private string _user;
         private string _text;
-        private DateTime dateTime;
+        private DateTime _dateTime;
         private List<string> tags = new List<string>();
         private string _slug;
 
@@ -65,6 +65,30 @@ namespace BlogEntries_CSharp.Models
             }
         }
 
+        public DateTime DateTime
+        {
+            get
+            {
+                return _dateTime;
+            }
+            set
+            {
+                _dateTime = value;
+            }
+        }
+
+        public List<Comment> Comments
+        {
+            get
+            {
+                return _comments;
+            }
+            set
+            {
+                _comments = value;
+            }
+        }
+
         // Default constructor
         public BlogEntry() { }
 
@@ -73,7 +97,7 @@ namespace BlogEntries_CSharp.Models
             _title = title;
             _user = user;
             _text = text;
-            dateTime = DateTime.Today;
+            _dateTime = DateTime.Today;
             if (tags != null)
             {
                 this.tags = tags.ToList();
@@ -86,7 +110,7 @@ namespace BlogEntries_CSharp.Models
             Comment comment = new Comment(blogEntry, user, text);
             try
             {
-                comments.Add(comment);
+                _comments.Add(comment);
                 return true;
             }
             catch (Exception)
@@ -97,7 +121,7 @@ namespace BlogEntries_CSharp.Models
 
         public bool RemoveComment(Comment comment)
         {
-            return comments.Remove(comment);
+            return _comments.Remove(comment);
         }
 
         public bool AddTag(string[] tagsToAdd)
