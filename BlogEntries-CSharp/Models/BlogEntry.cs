@@ -13,7 +13,7 @@ namespace BlogEntries_CSharp.Models
         private string _user;
         private string _text;
         private DateTime _dateTime;
-        private List<string> tags = new List<string>();
+        private List<string> _tags = new List<string>();
         private string _slug;
 
 
@@ -83,9 +83,13 @@ namespace BlogEntries_CSharp.Models
             {
                 return _comments;
             }
-            set
+        }
+
+        public List<string> Tags
+        {
+            get
             {
-                _comments = value;
+                return _tags;
             }
         }
 
@@ -100,7 +104,7 @@ namespace BlogEntries_CSharp.Models
             _dateTime = DateTime.Today;
             if (tags != null)
             {
-                this.tags = tags.ToList();
+                this._tags = tags.ToList();
             }
             _slug = Slugify(title);
         }
@@ -130,7 +134,7 @@ namespace BlogEntries_CSharp.Models
             {
                 foreach (string tag in tagsToAdd)
                 {
-                    tags.Add(tag);
+                    _tags.Add(tag);
                 }
                 return true;
             }
@@ -146,7 +150,7 @@ namespace BlogEntries_CSharp.Models
             {
                 foreach (string tag in tagsToRemove)
                 {
-                    tags.Remove(tag);
+                    _tags.Remove(tag);
                 }
                 return true;
             }

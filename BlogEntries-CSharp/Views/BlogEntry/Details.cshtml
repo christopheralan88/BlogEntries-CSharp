@@ -3,34 +3,54 @@
 <p>
     @Html.ActionLink("Create New", "New")
 </p>
-<table class="table">
-    <tr>
-    </tr>
 
-    <tr>
-        <td>
-            @Model.Title
-        </td>
-        <td>
-            @Model.Text
-        </td>
+<section>
+    <div class="container">
+        <div class="entry-list single">
+            <article>
+                <h1 id="title" name="title">@Model.Title</h1>
+                <h2>
+                    @if(Model.Tags.Count > 0)
+                    {
+                        foreach (var tag in Model.Tags)
+                        {
+                            @tag
+                        }
+                    }
+                </h2>
+
+                <time id="dateTime" name="dateTime">@Model.DateTime</time>
+
+                <div class="entry">
+                    <p id="text" name="text">@Model.Text</p>
+                    <p><a class="link" href="/Edit/" + @Model.Slug>Edit Entry</a></p>
+                </div>
+            </article>
+        </div>
+    </div>
+</section>
+
+<section class="entry-comments">
+    <div class="container">
+        <h2>Comments</h2>
         @foreach (var comment in Model.Comments)
         {
-            <td>
-                @comment.User
-            </td>
-            <td>
-                @comment.DateTime
-            </td>
-            <td>
-                @comment.Text
-            </td>
+            <div class="comment">
+                <strong>@comment.User</strong>
+                <time>@comment.DateTime</time>
+                <p>@comment.Text</p>
+            </div>
         }
-        <td>
-            @Html.ActionLink("Edit", "Edit", Model.Slug) |
-            @Html.ActionLink("Details", "Details", Model.Slug) |
-            @Html.ActionLink("Delete", "Delete", Model.Slug)
-        </td>
-    </tr>
+        <div class="new-comment">
+            <form action="/Details/" + @Model.Slug method="post">
+                <label for="name"> Name</label>
+                <input type="text" name="name"><br>
 
-</table>
+                <label for="comment">Comment</label>
+                <textarea rows="5" name="comment"></textarea>
+
+                <input type="submit" value="Post Comment" class="button">
+            </form>
+        </div>
+    </div>
+</section>

@@ -17,6 +17,8 @@ namespace BlogEntries_CSharp.Models
             BlogEntry blogEntry = new BlogEntry("Why I love C#", "admin", "Because it's awesome.", new string[] { "C#" });
             BlogEntry blogEntry2 = new BlogEntry("Why I love ASP.NET MVC", "admin", "Becaues it's great.", new string[] { "C#", "ASP.NET", "MVC" });
             BlogEntry blogEntry3 = new BlogEntry("Why I love .NET", "admin", "Because it's a more centralized framework than the Java community offers.", new string[] { ".NET", "EF" });
+            blogEntry.AddComment(blogEntry, "user", "a comment");
+            blogEntry.AddComment(blogEntry, "user", "another comment");
             blogEntries.Add(blogEntry);
             blogEntries.Add(blogEntry2);
             blogEntries.Add(blogEntry3);
