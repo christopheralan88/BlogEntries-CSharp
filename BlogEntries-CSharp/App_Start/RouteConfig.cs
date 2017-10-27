@@ -14,9 +14,27 @@ namespace BlogEntries_CSharp
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                "Default",                                              // Route name
+                "{controller}/{action}",                           // URL with parameters
+                new { controller = "BlogEntry", action = "Index" }      // Parameter defaults
+            );
+
+            routes.MapRoute(
+                "Details",                                                      // Route name
+                "{controller}/{action}/{slug}",                                 // URL with parameters
+                new { controller = "BlogEntry", slug = UrlParameter.Optional, action = "Details" }   // Parameter defaults
+            );
+
+            routes.MapRoute(
+                "SignIn",                                                      // Route name
+                "{controller}/{action}",                                 // URL with parameters
+                new { controller = "BlogEntry", action = "SignIn" }   // Parameter defaults
+            );
+
+            routes.MapRoute(
+                "AttemptLogIn",                                                      // Route name
+                "{controller}/{action}",                                 // URL with parameters
+                new { controller = "BlogEntry", action = "AttemptLogIn" }   // Parameter defaults
             );
         }
     }

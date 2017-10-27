@@ -10,17 +10,19 @@ namespace BlogEntries_CSharp.Controllers
 {
     public class BlogEntryController : Controller
     {
-        string username;
-        string password;
-        BlogsDb blogs = new BlogsDb(); // db or in memory data persistence
-
+        private MyUser user; 
+        private BlogsDb blogs = new BlogsDb(); // db or in-memory data persistence
+        private UserDb users = new UserDb(); // db or in-memory data persistence
 
         // GET: BlogEntry
         public ActionResult Index()
         {
+            if (user != null)
+            {
+                ViewBag.Username = user.Username;
+            }
             List<BlogEntry> blogEnries = blogs.FindAllEntries();
             return View(blogEnries);
-            //return Content("Hello World!");
         }
 
         // GET:  Detail
@@ -33,7 +35,17 @@ namespace BlogEntries_CSharp.Controllers
         // GET:  Sign-In
         public ActionResult SignIn()
         {
-            return View();
+            MyUser user = new MyUser(); // TODO:  CJ make User class under Models folder
+            if (TempData.ContainsKey("username") && TempData.ContainsKey("password"))
+            {
+                user.Username = TempData["username"].ToString();
+                user.Password = TempData["password"].ToString();
+                return View(user);
+            }
+            else
+            {
+                return View();
+            }
         }
 
         // GET:  Edit
@@ -119,13 +131,13 @@ namespace BlogEntries_CSharp.Controllers
 
         }
 
+        // POST:  SignIn
         [HttpPost]
         public ActionResult AttemptLogIn(string username, string password)
         {
             if (username != null && password != null)
             {
-                this.username = username;
-                this.password = password;
+                user = new MyUser(username, password);
                 return RedirectToAction("Index");
             }
             else

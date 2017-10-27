@@ -153,6 +153,8 @@
     <Compile Include="Models\BlogEntry.cs" />
     <Compile Include="Models\BlogsDb.cs" />
     <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\MyUser.cs" />
+    <Compile Include="Models\UserDb.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
